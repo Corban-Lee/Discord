@@ -17,7 +17,7 @@ class DiscordBot(commands.Bot):
         # load cogs from project/cogs/ directory
         for cogfile in os.listdir('project/cogs/'):
             if cogfile.endswith('.py'):
-                self.load_extention(f'project.cogs.{cogfile[:-3]}')
+                self.load_extension(f'project.cogs.{cogfile[:-3]}')
 
 
     @staticmethod
