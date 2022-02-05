@@ -17,7 +17,34 @@ class DiscordBot(commands.Bot):
         # load cogs from project/cogs/ directory
         for cogfile in os.listdir('project/cogs/'):
             if cogfile.endswith('.py'):
-                self.load_extension(f'project.cogs.{cogfile[:-3]}')
+                self.load_extension(f'cogs.{cogfile[:-3]}')
+
+
+        # _list = [
+        #     'Reply hazy, try again',
+        #     'Ask again later',
+        #     'Better not tell you now',
+        #     'Cannot predict now',
+        #     'Concentrate and ask again',
+        #     "Don't count on it",
+        #     'My reply is no',
+        #     'My sources say no',
+        #     'Outlook not so good',
+        #     'Very doubtful'
+        # ]
+
+        # for id, item in enumerate(_list):
+
+        #     id += 9
+
+        #     self.db_insert(
+        #         'Magic8BallResponses', 
+        #         (
+        #             id,
+        #             item,
+        #             False
+        #         )
+        #     )
 
 
     @staticmethod
@@ -26,16 +53,14 @@ class DiscordBot(commands.Bot):
 
 
     # database related methods - - - - - - - - - -
-    #
-    # this might not be good way of doing things. If two different tasks need to be completed
-    # then the db will be opened and closed twice instead of once.
 
 
     def db_action(self, action:str):
         cur = self.db.cursor()
-        cur.execute(action)
-        cur.commit()
-        cur.close()
+        print(action)
+        execution = cur.execute(action)
+        self.db.commit()
+        return execution
 
 
     def db_create_table(self, table_name:str, columns:tuple):
@@ -48,8 +73,10 @@ class DiscordBot(commands.Bot):
 
 
 
-    def db_retrieve(self, table_name:str, values:tuple, orderby:tuple) -> tuple:
-        return self.db_action(f'SELECT {values} FROM {table_name} ORDER BY {orderby}')
+    def db_retrieve(self, table_name:str, values:tuple, orderby:tuple=None) -> tuple:
+        if orderby:
+            return self.db_action(f'SELECT {values} FROM {table_name} ORDER BY {orderby}')
+        return self.db_action(f'SELECT {values} FROM {table_name}')
 
 
 if __name__ == '__main__':
