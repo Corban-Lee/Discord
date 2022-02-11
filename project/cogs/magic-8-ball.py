@@ -29,9 +29,9 @@ class Magic8Ball(commands.Cog):
         ]
     )
     async def ask_question(self, context:SlashContext, question):
-        
-        answer = tuple(self.bot.db_retrieve('Magic8BallResponses', '*', 'RANDOM() LIMIT 18'))[0]
-        await context.reply(f'{question}\n{answer[1]}')
+        answer = tuple(self.bot.db_utils.get('Magic8BallResponses', '*', 'RANDOM() LIMIT 18'))[0][1]
+        reply = f'You asked: {question}\nMy response is: {answer}'
+        await context.reply(reply)
 
 
     
