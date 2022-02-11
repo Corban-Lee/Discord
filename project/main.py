@@ -19,9 +19,6 @@ for cog_filename in os.listdir('project/cogs/'):
     if cog_filename.endswith('.py'):
         discord_bot.load_extension(f'cogs.{cog_filename[:-3]}')
 
-discord_bot.db_utils.create_table(table_name='', columns=('',))
-
-
 @discord_bot.event
 async def on_ready():
     print('bot is running')
