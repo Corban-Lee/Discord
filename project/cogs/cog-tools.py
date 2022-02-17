@@ -24,7 +24,7 @@ class CogTools(commands.Cog):
     @cog_ext.cog_slash(
         name='Load-Cog',
         description='Load a cog',
-        guild_ids=[819325370087112744],
+        guild_ids=[],
         options=[
             create_option(
                 name='cog_name',
@@ -57,7 +57,7 @@ class CogTools(commands.Cog):
     @cog_ext.cog_slash(
         name='Unload-Cog',
         description='Unload a cog',
-        guild_ids=[819325370087112744],
+        guild_ids=[],
         options=[
             create_option(
                 name='cog_name',
@@ -94,7 +94,7 @@ class CogTools(commands.Cog):
     @cog_ext.cog_slash(
         name='Reload-Cog',
         description='Reload a cog',
-        guild_ids=[819325370087112744],
+        guild_ids=[],
         options=[
             create_option(
                 name='cog_name',
@@ -111,7 +111,10 @@ class CogTools(commands.Cog):
         ]
     )
     async def reload_cog(self, context:SlashContext, cog_name:str):
-        pass
+        await context.reply(f'Feature is broken because discord-py-slash-commands library is shit')
+        # await context.invoke(self.bot.get_command('Unload-Cog'), cog_name=cog_name)
+        # await context.invoke(self.bot.get_command('Load-Cog'), cog_name=cog_name)
+        # await context.reply(f'I have reload the {cog_name} cog')
 
 
     
