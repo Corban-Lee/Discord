@@ -5,3 +5,4 @@ project/db.sqlite3
 project/logs/
 project/temp/
 db.sqlite3
+old_message_leaderboard_save.json
