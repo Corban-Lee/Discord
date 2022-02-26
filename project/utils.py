@@ -1,3 +1,7 @@
+import logging
+import sqlite3
+
+
 class DatabaseUtility:
     def __init__(self, database):
         self.db = database
@@ -6,8 +10,13 @@ class DatabaseUtility:
 
 
     def execute_sql(self, code:str):
-        print(code)
-        self.cur.execute(code)
+        logging.info(f'Excecuting SQLite code: {code}')
+        try:
+            self.cur.execute(code)
+        except sqlite3.OperationalError as error:
+            logging.error(f'Operational Error while executing SQLite code: {error}')
+            raise Exception(error)
+
         self.db.commit()
 
 
@@ -18,19 +27,18 @@ class DatabaseUtility:
         """
         self.execute_sql(
             f"CREATE TABLE IF NOT EXISTS {table_name} {columns};"
-        ) 
+        )
 
 
     def insert_row(self, table_name:str, values:tuple[str]) -> None:
         """ Insert row into the database
         :param table_name: Name of the new table (table must exist)
         :param values: tuple of strings containing values to insert
-        """
+        """ 
         self.execute_sql(
             f"INSERT INTO  {table_name} VALUES {values};"
         )
-
-
+        
     def update_row(self, table_name:str, values:tuple|str, where:tuple|str) -> None:
         """
         """
